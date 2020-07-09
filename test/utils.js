@@ -24,22 +24,18 @@ describe("Vechain", function() {
             assert('0x' + addressBuffer.toString('hex') == account.address, true)
         })
 
-        /*it("Has valid signing function", async function() {
+        it("Has valid signing function", async function() {
             const message = 'hello world'
-
-            //const privateKeyBuffer = Buffer.from(privateKey.substring(2, privateKey.length), 'hex')
-            //const signature = cry.secp256k1.sign(cry.keccak256(message), privateKeyBuffer)
             
             const signature = await utils.signMessage('vechain', account.privateKey, message)
             assert(signature && signature.length, true)
 
-            const signatureBuffer = Buffer.from(signature, 'hex')
-            const hash = cry.keccak256(message, signatureBuffer)
+            const signatureBuffer = Buffer.from(signature.substring(2, signature.length), 'hex')
+            const hash = cry.keccak256(message)
 
             const signingAddress = cry.secp256k1.recover(hash, signatureBuffer)
-            console.log("sa", signingAddress, signingAddress.toString('hex'))
-            //assert(signingAddress == account.address, true)
-        })*/
+            assert('0x' + signingAddress.toString('hex') == account['publicKey'], true)
+        })
     });
 
 });

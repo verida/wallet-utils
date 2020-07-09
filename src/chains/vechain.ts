@@ -35,8 +35,9 @@ export default class utils {
      * @param message Message to sign
      */
     static async signMessage(privateKey: string, message: string): Promise<string> {
-        const sig = cry.secp256k1.sign(cry.keccak256(message), utils.hexToBuffer(privateKey))
-        return sig.toString('hex')
+        const hash = cry.keccak256(message)
+        const sig = cry.secp256k1.sign(hash, utils.hexToBuffer(privateKey))
+        return '0x' + sig.toString('hex')
     }
 
     static hexToBuffer(hex: string): Buffer {
