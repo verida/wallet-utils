@@ -2,9 +2,10 @@
   "name": "@verida/wallet-utils",
   "version": "0.0.1",
   "description": "Wallet utilities for managing accounts, keys and signatures across multiple blockchains",
-  "main": "index.js",
+  "main": "dist/utils.ts",
   "scripts": {
-    "test": "mocha -mocha --require ts-node/register --require @babel/polyfill --require @babel/register './test/**/*.js'"
+    "test": "mocha -mocha --require ts-node/register --require @babel/polyfill --require @babel/register './test/**/*.js'",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
