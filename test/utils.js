@@ -25,7 +25,7 @@ describe("Vechain", function() {
         })
 
         it("Has valid signing function", async function() {
-            const message = 'hello world'
+            const message = "Do you approve access to view and update \"Verida Wallet\"?\n\n" + account['did'];
             
             const signature = await utils.signMessage('vechain', account.privateKey, message)
             assert(signature && signature.length, true)
@@ -59,7 +59,7 @@ describe("Ethereum", function() {
         })
 
         it("Has valid signing function", async function() {
-            const message = 'hello world'
+            const message = "Do you approve access to view and update \"Verida Wallet\"?\n\n" + account['did'];
             
             const signature = await utils.signMessage('ethr', account.privateKey, message)
             assert(signature && signature.length, true)
