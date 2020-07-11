@@ -21,4 +21,17 @@ export default class utils {
         return await wallet.signMessage(message)
     }
 
+    /**
+     * Recover an address from a message and signature
+     * 
+     * @param message 
+     * @param signature 
+     */
+    static recoverAddress(message: string, signature: string) {
+        const address = ethers.utils.verifyMessage(message, signature)
+        if (address) {
+            return address
+        }
+    }
+
 }

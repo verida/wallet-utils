@@ -45,4 +45,8 @@ export default class utils {
         return chains[chain].signMessage(privateKey, message)
     }
 
+    static recoverAddress(chain: string, message: string, signature: string): string {
+        return chains[chain].recoverAddress(message, signature)
+    }
+
 }

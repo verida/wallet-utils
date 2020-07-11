@@ -30,11 +30,8 @@ describe("Vechain", function() {
             const signature = await utils.signMessage('vechain', account.privateKey, message)
             assert(signature && signature.length, true)
 
-            const signatureBuffer = Buffer.from(signature.substring(2, signature.length), 'hex')
-            const hash = cry.keccak256(message)
-
-            const signingAddress = cry.secp256k1.recover(hash, signatureBuffer)
-            assert('0x' + signingAddress.toString('hex') == account['publicKey'], true)
+            const address = await utils.recoverAddress('vechain', message, signature)
+            assert(address == account['address'], true)
         })
     });
 
@@ -67,8 +64,8 @@ describe("Ethereum", function() {
             const signature = await utils.signMessage('ethr', account.privateKey, message)
             assert(signature && signature.length, true)
 
-            const signingAddress = ethers.utils.verifyMessage(message, signature)
-            assert(signingAddress == account.address, true)
+            const address = await utils.recoverAddress('ethr', message, signature)
+            assert(address == account['address'], true)
         })
     });
 
