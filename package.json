@@ -1,6 +1,6 @@
 {
   "name": "@verida/wallet-utils",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Wallet utilities for managing accounts, keys and signatures across multiple blockchains",
   "main": "dist/utils.js",
   "scripts": {
