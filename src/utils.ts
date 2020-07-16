@@ -1,11 +1,9 @@
-const vechainUtils = require('./chains/vechain').default
 const ethereumUtils = require('./chains/ethereum').default
 
 type Dictionary = { [index: string]: any }
 
 const chains:Dictionary = {
-    'ethr': ethereumUtils,
-    'vechain': vechainUtils
+    'ethr': ethereumUtils
 }
 
 export default class utils {
