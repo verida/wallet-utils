@@ -64,6 +64,18 @@ var utils = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Recover an address from a message and signature
+     *
+     * @param message
+     * @param signature
+     */
+    utils.recoverAddress = function (message, signature) {
+        var address = ethers_1.ethers.utils.verifyMessage(message, signature);
+        if (address) {
+            return address;
+        }
+    };
     return utils;
 }());
 exports.default = utils;

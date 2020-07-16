@@ -76,6 +76,9 @@ var utils = /** @class */ (function () {
             });
         });
     };
+    utils.recoverAddress = function (chain, message, signature) {
+        return chains[chain].recoverAddress(message, signature);
+    };
     return utils;
 }());
 exports.default = utils;
