@@ -44,4 +44,21 @@ export default class utils {
         return Buffer.from(hex.substring(2,hex.length), 'hex')
     }
 
+    /**
+     * Recover an address from a message and signature
+     * 
+     * @param message 
+     * @param signature 
+     */
+    static recoverAddress(message: string, signature: string) {
+        const signatureBuffer = Buffer.from(signature.substring(2, signature.length), 'hex')
+        const hash = cry.keccak256(message)
+        const publicKey = cry.secp256k1.recover(hash, signatureBuffer)
+
+        if (publicKey) {
+            const signingAddress = cry.publicKeyToAddress(publicKey)
+            return '0x' + signingAddress.toString('hex')
+        }
+    }
+
 }
