@@ -9,7 +9,7 @@ export default class utils {
 
     static getPublicKey(privateKey: string): string {
         const wallet = new ethers.Wallet(privateKey)
-        return wallet.publicKey
+        return wallet.privateKey
     }
 
     static getAddress(privateKey: string): string {
@@ -23,9 +23,9 @@ export default class utils {
 
     /**
      * Recover an address from a message and signature
-     * 
-     * @param message 
-     * @param signature 
+     *
+     * @param message
+     * @param signature
      */
     static recoverAddress(message: string, signature: string) {
         const address = ethers.utils.verifyMessage(message, signature)

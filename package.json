@@ -22,7 +22,7 @@
   "homepage": "https://github.com/verida/wallet-utils#readme",
   "dependencies": {
     "@types/node": "^14.0.23",
-    "ethers": "5.0.0"
+    "ethers": "4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",

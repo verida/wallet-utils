@@ -46,7 +46,7 @@ var utils = /** @class */ (function () {
     };
     utils.getPublicKey = function (privateKey) {
         var wallet = new ethers_1.ethers.Wallet(privateKey);
-        return wallet.publicKey;
+        return wallet.privateKey;
     };
     utils.getAddress = function (privateKey) {
         return ethers_1.ethers.utils.computeAddress(privateKey);
