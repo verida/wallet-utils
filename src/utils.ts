@@ -14,23 +14,22 @@ export default class utils {
      * Create a new account
      * @param chain `ethereum` or `vechain`
      */
-    static createAccount(chain: string): object {
-        const privateKey = utils.createPrivateKey(chain)
-        const publicKey = utils.getPublicKey(chain, privateKey)
-        const address = utils.getAddress(chain, privateKey)
-        const did = 'did:' + chain + ':' + address
+    static createWallet(chain: string): object {
+        const wallet = chains[chain].createWallet()
+        const did = 'did:' + chain + ':' + wallet['address']
 
         return {
             chain: chain,
-            privateKey: privateKey,
-            publicKey: publicKey,
+            mnemonic: wallet['mnemonic'],
+            privateKey: wallet['privateKey'],
+            publicKey: wallet['publicKey'],
             did: did,
-            address: address
+            address: wallet['address']
         }
     }
 
-    static createPrivateKey(chain: string): string {
-        return chains[chain].createPrivateKey()
+    static getWallet(chain: string, mnemonic: string): object {
+        return chains[chain].getWallet(mnemonic)
     }
 
     static getPublicKey(chain: string, privateKey: string): string {

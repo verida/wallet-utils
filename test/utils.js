@@ -6,12 +6,16 @@ import { cry } from 'thor-devkit';
 describe("Vechain", function() {
 
     describe("Create Account", function() {
-        const account = utils.createAccount('vechain')
-        console.log(account)
+        const account = utils.createWallet('vechain')
 
         it("Has valid DID", function() {
             assert(account['did'].substring(0,14) == 'did:vechain:0x', true)
             assert(account['did'].length == 54, true)
+        })
+
+        it("Has valid mnemonic", function() {
+            assert(account['mnemonic'].length > 0, true)
+            assert(account['mnemonic'].split(' ').length >= 12, true)
         })
 
         it("Has correct chain", function() {
@@ -33,6 +37,14 @@ describe("Vechain", function() {
             const address = await utils.recoverAddress('vechain', message, signature)
             assert(address == account['address'], true)
         })
+
+        it("Can retreive from mnemonic", function() {
+            const accountRetreived = utils.getWallet('vechain', account['mnemonic'])
+            assert(account.mnemonic == accountRetreived.mnemonic, true)
+            assert(account.privateKey == accountRetreived.privateKey, true)
+            assert(account.publicKey == accountRetreived.publicKey, true)
+            assert(account.address == accountRetreived.address, true)
+        })
     });
 
 });
@@ -40,12 +52,16 @@ describe("Vechain", function() {
 describe("Ethereum", function() {
 
     describe("Create Account", function() {
-        const account = utils.createAccount('ethr')
-        console.log(account)
+        const account = utils.createWallet('ethr')
 
         it("Has valid DID", function() {
             assert(account['did'].substring(0,11) == 'did:ethr:0x', true)
             assert(account['did'].length == 51, true)
+        })
+
+        it("Has valid mnemonic", function() {
+            assert(account['mnemonic'].length > 0, true)
+            assert(account['mnemonic'].split(' ').length >= 12, true)
         })
 
         it("Has correct chain", function() {
@@ -66,6 +82,15 @@ describe("Ethereum", function() {
 
             const address = await utils.recoverAddress('ethr', message, signature)
             assert(address == account['address'], true)
+        })
+
+        it("Can retreive from mnemonic", function() {
+            const accountRetreived = utils.getWallet('ethr', account.mnemonic)
+
+            assert(account.mnemonic == accountRetreived.mnemonic, true)
+            assert(account.privateKey == accountRetreived.privateKey, true)
+            assert(account.publicKey == accountRetreived.publicKey, true)
+            assert(account.address == accountRetreived.address, true)
         })
     });
 

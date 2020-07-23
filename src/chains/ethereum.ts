@@ -2,9 +2,27 @@ import { ethers } from 'ethers'
 
 export default class utils {
 
-    static createPrivateKey(): string {
+    static createWallet(): object {
         const wallet = ethers.Wallet.createRandom()
-        return wallet.privateKey
+        const mnemonic = wallet.mnemonic
+
+        return {
+            mnemonic: mnemonic.phrase,
+            privateKey: wallet.privateKey,
+            publicKey: wallet.privateKey,
+            address: ethers.utils.computeAddress(wallet.privateKey)
+        }
+    }
+
+    static getWallet(mnemonic: string): object {
+        const wallet = ethers.Wallet.fromMnemonic(mnemonic)
+
+        return {
+            mnemonic: wallet.mnemonic.phrase,
+            privateKey: wallet.privateKey,
+            publicKey: wallet.privateKey,
+            address: ethers.utils.computeAddress(wallet.privateKey)
+        }
     }
 
     static getPublicKey(privateKey: string): string {

@@ -2,6 +2,35 @@ import { cry } from 'thor-devkit'
 
 export default class utils {
 
+    static createWallet(): object {
+        const words = cry.mnemonic.generate()
+        const privateKeyBytes = cry.mnemonic.derivePrivateKey(words)
+        const privateKey = '0x' + Buffer.from(privateKeyBytes).toString('hex')
+        const publicKey = utils.getPublicKey(privateKey)
+        const address = utils.getAddress(privateKey)
+
+        return {
+            mnemonic: words.join(' '),
+            privateKey: privateKey,
+            publicKey: publicKey,
+            address: address
+        }
+    }
+
+    static getWallet(words: string): object {
+        const privateKeyBytes = cry.mnemonic.derivePrivateKey(words.split(' '))
+        const privateKey = '0x' + Buffer.from(privateKeyBytes).toString('hex')
+        const publicKey = utils.getPublicKey(privateKey)
+        const address = utils.getAddress(privateKey)
+
+        return {
+            mnemonic: words,
+            privateKey: privateKey,
+            publicKey: publicKey,
+            address: address
+        }
+    }
+
     static createPrivateKey(): string {
         const keyBytes = cry.secp256k1.generatePrivateKey()
         return '0x' + Buffer.from(keyBytes).toString('hex')
