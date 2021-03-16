@@ -1,11 +1,13 @@
 const vechainUtils = require('./chains/vechain').default
 const ethereumUtils = require('./chains/ethereum').default
+const nearUtils = require('./chains/near').default
 
 type Dictionary = { [index: string]: any }
 
 const chains:Dictionary = {
     'ethr': ethereumUtils,
-    'vechain': vechainUtils
+    'vechain': vechainUtils,
+    'near': nearUtils
 }
 
 export default class utils {
@@ -46,6 +48,10 @@ export default class utils {
 
     static recoverAddress(chain: string, message: string, signature: string): string {
         return chains[chain].recoverAddress(message, signature)
+    }
+
+    static async verifySignature(chain: string, message: string, signature: string, did: string): Promise<boolean> {
+        return chains[chain].verifySignature(message, signature, did)
     }
 
 }
