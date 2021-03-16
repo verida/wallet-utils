@@ -83,7 +83,7 @@ export default class utils {
         });
         const nearAccount = new Account(near.connection, accountId);
         const messageBuffer = Buffer.from(message);
-        const hexSig = Buffer.from(signature, 'hex')
+        const sigBuffer = Buffer.from(signature.replace('0x',''), 'hex')
 
         // pulled from https://github.com/near/near-contract-helper/blob/cf9bab1f05d3e639bb01c104cb465b35c89992b8/app.js#L133
         try {
@@ -91,7 +91,7 @@ export default class utils {
             const accessKeys = await nearAccount.getAccessKeys()
             return accessKeys.some((it: any) => {
                 const publicKey = it.public_key.replace('ed25519:', '');
-                return nacl.sign.detached.verify(hash, hexSig, bs58.decode(publicKey));
+                return nacl.sign.detached.verify(hash, sigBuffer, bs58.decode(publicKey));
             });
         } catch (e) {
             console.error(e);
