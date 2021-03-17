@@ -20,8 +20,13 @@
   },
   "homepage": "https://github.com/verida/wallet-utils#readme",
   "dependencies": {
+    "bs58": "^4.0.1",
     "ethers": "^5.0.5",
-    "thor-devkit": "^1.2.5"
+    "lodash": "^4.17.21",
+    "near-api-js": "^0.38.0",
+    "near-seed-phrase": "^0.1.1",
+    "thor-devkit": "^1.2.5",
+    "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",

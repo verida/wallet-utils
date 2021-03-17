@@ -52,4 +52,9 @@ export default class utils {
         }
     }
 
+    static async verifySignature(message: string, signature: string, did: string, config: any = {}): Promise<boolean> {
+        const address = utils.recoverAddress(message, signature)
+        return address?.toLowerCase() == did.replace('did:ethr:','').toLowerCase()
+    }
+
 }
