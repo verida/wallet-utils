@@ -21,16 +21,29 @@ describe("Near", function() {
         })
 
         //  Also tests `getWallet()`
-        it("Has valid signing function", async function() {
+        it("Has valid signing function - real account", async function() {
             // todo: Replace this with config variables locally and only run if specified
             // to avoid sharing seed phrase
             const testAccountId = "verida-wallet-utiles-unittest.testnet";
             const testPhrase = "ring flame nasty cigar fringe journey puzzle unhappy bright cover rebel normal";
+            
             const testAccount = utils.getWallet('near', testPhrase);
             const did = `did:near:${testAccountId}`;
 
             const message = "Do you approve access to view and update \"Verida Wallet\"?\n\n" + did;
 
+            const signature = await utils.signMessage('near', testAccount.privateKey, message)
+            assert(signature && signature.length, true)
+
+            const validSignature = await utils.verifySignature('near', message, signature, did)
+            assert(validSignature, true)
+        })
+
+        it("Has valid signing function - implicit account", async function() {
+            const did = 'did:near:066e163732c597dfd538baf1deede3ab49dcada96a5b0d761ae195d5f91834c5';
+            const testPhrase = "cabbage bone quality powder coffee silly ride audit insane biology setup zone";
+            const testAccount = utils.getWallet('near', testPhrase);
+            const message = "Do you approve access to view and update \"Verida Wallet\"?\n\n" + did;
             const signature = await utils.signMessage('near', testAccount.privateKey, message)
             assert(signature && signature.length, true)
 

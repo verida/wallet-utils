@@ -94,20 +94,37 @@ export default class utils {
      */
     static async verifySignature(message: string, signature: string, did: string, config: any = {}): Promise<boolean> {
         const accountId = did.replace('did:near:', '')
+
+        // Build signature buffer
+        const messageBuffer = Buffer.from(message);
+        const hash = crypto.createHash('sha256').update(messageBuffer).digest();
+        const sigBuffer = Buffer.from(signature.replace('0x',''), 'hex')
+        
+        // Check if message has been signed with the implicit account
+        const implicitBuffer = Buffer.from(accountId, 'hex');
+        let implicitPublicKey = bs58.encode(implicitBuffer);
+
+        try {
+            const imlicitMatch = nacl.sign.detached.verify(hash, sigBuffer, bs58.decode(implicitPublicKey));
+            if (imlicitMatch) {
+                // Message was signed by public key associated with this DID
+                return true;
+            }
+        } catch (err) {
+            // publicKey may not be bs58 if it's a non-implicit account
+            // in this case, simply continue
+        }
+
         const { Account } = nearAPI;
         const near = await utils.getNear(config)
-        
         const nearAccount = new Account(near.connection, accountId);
-        const messageBuffer = Buffer.from(message);
-        const sigBuffer = Buffer.from(signature.replace('0x',''), 'hex')
-
+        
         // Referenced from https://github.com/near/near-contract-helper/blob/cf9bab1f05d3e639bb01c104cb465b35c89992b8/app.js#L133
         try {
-            const hash = crypto.createHash('sha256').update(messageBuffer).digest();
+            
             const accessKeys = await nearAccount.getAccessKeys()
             return accessKeys.some((it: any) => {
                 const publicKey = it.public_key.replace('ed25519:', '');
-                console.log("checking", publicKey);
                 return nacl.sign.detached.verify(hash, sigBuffer, bs58.decode(publicKey));
             });
         } catch (e) {
