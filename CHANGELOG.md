@@ -1,4 +1,10 @@
 
+
+2021-03-16 v1.3.1
+--------------------
+
+* Fix: Messages signed with implicit NEAR accounts now validate correctly
+
 2021-03-16 v1.3
 --------------------
 
