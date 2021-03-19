@@ -31,7 +31,17 @@ export default class utils {
     }
 
     static getWallet(chain: string, mnemonic: string): object {
-        return chains[chain].getWallet(mnemonic)
+        const wallet = chains[chain].getWallet(mnemonic)
+        const did = 'did:' + chain + ':' + wallet['address']
+
+        return {
+            chain: chain,
+            mnemonic: wallet['mnemonic'],
+            privateKey: wallet['privateKey'],
+            publicKey: wallet['publicKey'],
+            did: did,
+            address: wallet['address']
+        }
     }
 
     static getPublicKey(chain: string, privateKey: string): string {
