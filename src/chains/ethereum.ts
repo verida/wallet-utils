@@ -9,7 +9,7 @@ export default class utils {
         return {
             mnemonic: mnemonic.phrase,
             privateKey: wallet.privateKey,
-            publicKey: wallet.privateKey,
+            publicKey: wallet.publicKey,
             address: ethers.utils.computeAddress(wallet.privateKey)
         }
     }
@@ -20,7 +20,7 @@ export default class utils {
         return {
             mnemonic: wallet.mnemonic.phrase,
             privateKey: wallet.privateKey,
-            publicKey: wallet.privateKey,
+            publicKey: wallet.publicKey,
             address: ethers.utils.computeAddress(wallet.privateKey)
         }
     }

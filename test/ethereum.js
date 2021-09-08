@@ -22,9 +22,9 @@ describe("Ethereum", function() {
         })
 
         it("Has valid address", function() {
-            assert(ethers.utils.isAddress(account.address), true)
-            assert(ethers.utils.computeAddress(account.privateKey) == account.address, true)
-            assert(ethers.utils.computeAddress(account.publicKey) == account.address, true)
+            assert.ok(ethers.utils.isAddress(account.address), "Is an address")
+            assert.ok(ethers.utils.computeAddress(account.privateKey) == account.address, "Private key matches correct address")
+            assert.ok(ethers.utils.computeAddress(account.publicKey) == account.address, "Public key matches correct address")
         })
 
         it("Has valid signing function", async function() {
@@ -40,10 +40,10 @@ describe("Ethereum", function() {
         it("Can retreive from mnemonic", function() {
             const accountRetreived = utils.getWallet('ethr', account.mnemonic)
 
-            assert(account.mnemonic == accountRetreived.mnemonic, true)
-            assert(account.privateKey == accountRetreived.privateKey, true)
-            assert(account.publicKey == accountRetreived.publicKey, true)
-            assert(account.address == accountRetreived.address, true)
+            assert.ok(account.mnemonic == accountRetreived.mnemonic, "Mnemonic matches")
+            assert.ok(account.privateKey == accountRetreived.privateKey, "Private key matches")
+            assert.ok(account.publicKey == accountRetreived.publicKey, "Public key matches")
+            assert.ok(account.address == accountRetreived.address, "Address matches")
         })
     });
 
