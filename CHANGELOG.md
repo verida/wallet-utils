@@ -1,4 +1,9 @@
 
+2021-11-08 v1.4.0
+--------------------
+
+* Fix: Critical bug with Ethereum returning private key instead of public key
+
 2021-03-20 v1.3.2
 --------------------
 
