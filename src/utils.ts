@@ -1,13 +1,15 @@
 const vechainUtils = require('./chains/vechain').default
 const ethereumUtils = require('./chains/ethereum').default
 const nearUtils = require('./chains/near').default
+const algorandUtils = require('./chains/algorand').default
 
 type Dictionary = { [index: string]: any }
 
 const chains:Dictionary = {
     'ethr': ethereumUtils,
     'vechain': vechainUtils,
-    'near': nearUtils
+    'near': nearUtils,
+    'algo': algorandUtils,
 }
 
 export default class utils {
@@ -50,6 +52,10 @@ export default class utils {
 
     static getAddress(chain: string, privateKey: string): string {
         return chains[chain].getAddress(privateKey)
+    }
+
+    static signTransaction(chain: string, privateKey: string, transaction: any): object {
+        return chains[chain].signTransaction(privateKey, transaction)
     }
 
     static async signMessage(chain: string, privateKey: string, message: string): Promise<string> {
