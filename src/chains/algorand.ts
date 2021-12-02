@@ -1,8 +1,13 @@
 const algosdk = require('algosdk');
+const nacl = require('tweetnacl');
 
 function privateKeyToArray(privateKey: string) {
     return Buffer.from(privateKey.substring(2,privateKey.length), 'hex').toJSON().data
 }
+
+function keyPairFromSecretKey(sk: Uint8Array) {
+    return nacl.sign.keyPair.fromSecretKey(sk);
+  }
 
 export default class utils {
 
@@ -10,7 +15,8 @@ export default class utils {
         const wallet = algosdk.generateAccount();
         const mnemonic = algosdk.secretKeyToMnemonic(wallet.sk);
         const privateKey = '0x' + Buffer.from(wallet.sk).toString('hex')
-        const publicKey = '0x' + Buffer.from(wallet.addr).toString('hex')
+        const keypair = keyPairFromSecretKey(wallet.sk)
+        const publicKey = '0x' + Buffer.from(keypair.publicKey).toString('hex')
 
         return {
             mnemonic,
@@ -23,7 +29,8 @@ export default class utils {
     static getWallet(mnemonic: string): object {
         const wallet = algosdk.mnemonicToSecretKey(mnemonic)
         const privateKey = '0x' + Buffer.from(wallet.sk).toString('hex')
-        const publicKey = '0x' + Buffer.from(wallet.addr).toString('hex')
+        const keypair = keyPairFromSecretKey(wallet.sk)
+        const publicKey = '0x' + Buffer.from(keypair.publicKey).toString('hex')
 
         return {
             mnemonic: mnemonic,
