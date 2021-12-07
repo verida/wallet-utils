@@ -54,10 +54,6 @@ export default class utils {
         return chains[chain].getAddress(privateKey)
     }
 
-    static signTransaction(chain: string, privateKey: string, transaction: any): object {
-        return chains[chain].signTransaction(privateKey, transaction)
-    }
-
     static async signMessage(chain: string, privateKey: string, message: string): Promise<string> {
         return chains[chain].signMessage(privateKey, message)
     }
