@@ -43,15 +43,6 @@ export default class utils {
         return wallet.addr
     }
 
-    static signTransaction(privateKey: string, transaction: any): object {
-        const {sender, receiver, amount, note, params} = transaction
-        const txn = algosdk.makePaymentTxnWithSuggestedParams(sender, receiver, amount, undefined, note, params);
-        const sk = algosdk.secretKeyToMnemonic(stringToArray(privateKey))
-        const wallet = algosdk.mnemonicToSecretKey(sk)
-        const signedTxn = txn.signTxn(wallet.sk);
-        return {txn, signedTxn}
-    }
-
     static async signMessage(privateKey: string, message: string): Promise<string> {
         const encodedMessage = new TextEncoder().encode(message)
         const sk = algosdk.secretKeyToMnemonic(stringToArray(privateKey))
