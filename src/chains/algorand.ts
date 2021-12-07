@@ -1,13 +1,8 @@
 const algosdk = require('algosdk');
-const nacl = require('tweetnacl');
 
-function privateKeyToArray(privateKey: string) {
-    return Buffer.from(privateKey.substring(2,privateKey.length), 'hex').toJSON().data
+function stringToArray(string: string) {
+    return Buffer.from(string.substring(2,string.length), 'hex').toJSON().data
 }
-
-function keyPairFromSecretKey(sk: Uint8Array) {
-    return nacl.sign.keyPair.fromSecretKey(sk);
-  }
 
 export default class utils {
 
@@ -15,13 +10,11 @@ export default class utils {
         const wallet = algosdk.generateAccount();
         const mnemonic = algosdk.secretKeyToMnemonic(wallet.sk);
         const privateKey = '0x' + Buffer.from(wallet.sk).toString('hex')
-        const keypair = keyPairFromSecretKey(wallet.sk)
-        const publicKey = '0x' + Buffer.from(keypair.publicKey).toString('hex')
 
         return {
             mnemonic,
             privateKey,
-            publicKey,
+            publicKey: wallet.addr,
             address: wallet.addr
         }
     }
@@ -29,23 +22,23 @@ export default class utils {
     static getWallet(mnemonic: string): object {
         const wallet = algosdk.mnemonicToSecretKey(mnemonic)
         const privateKey = '0x' + Buffer.from(wallet.sk).toString('hex')
-        const keypair = keyPairFromSecretKey(wallet.sk)
-        const publicKey = '0x' + Buffer.from(keypair.publicKey).toString('hex')
 
         return {
             mnemonic: mnemonic,
             privateKey,
-            publicKey,
+            publicKey: wallet.addr,
             address: wallet.addr
         }
     }
 
-    static getPublicKey() {
-        throw new Error('Not implemented');
+    static getPublicKey(privateKey: string): string {
+        const sk = algosdk.secretKeyToMnemonic(stringToArray(privateKey))
+        const wallet = algosdk.mnemonicToSecretKey(sk)
+        return wallet.addr
     }
 
     static getAddress(privateKey: string): string {
-        const sk = algosdk.secretKeyToMnemonic(privateKeyToArray(privateKey))
+        const sk = algosdk.secretKeyToMnemonic(stringToArray(privateKey))
         const wallet = algosdk.mnemonicToSecretKey(sk)
         return wallet.addr
     }
@@ -53,22 +46,29 @@ export default class utils {
     static signTransaction(privateKey: string, transaction: any): object {
         const {sender, receiver, amount, note, params} = transaction
         const txn = algosdk.makePaymentTxnWithSuggestedParams(sender, receiver, amount, undefined, note, params);
-        const sk = algosdk.secretKeyToMnemonic(privateKeyToArray(privateKey))
+        const sk = algosdk.secretKeyToMnemonic(stringToArray(privateKey))
         const wallet = algosdk.mnemonicToSecretKey(sk)
         const signedTxn = txn.signTxn(wallet.sk);
         return {txn, signedTxn}
     }
 
-    static async signMessage() {
-        throw new Error('Not implemented');
+    static async signMessage(privateKey: string, message: string): Promise<string> {
+        const encodedMessage = new TextEncoder().encode(message)
+        const sk = algosdk.secretKeyToMnemonic(stringToArray(privateKey))
+        const wallet = algosdk.mnemonicToSecretKey(sk)
+        const signature = algosdk.signBytes(encodedMessage, wallet.sk)
+        const stringFromSignature = '0x' + Buffer.from(signature).toString('hex')
+        return stringFromSignature
     }
 
     static recoverAddress() {
         throw new Error('Not implemented');
     }
 
-    static async verifySignature() {
-        throw new Error('Not implemented');
+    static async verifySignature(message: string, signature: string, did: string): Promise<boolean> {
+        const bufferFromSignatureString =  Buffer.from(signature.substring(2,signature.length), 'hex')
+        const encodedMessage = new TextEncoder().encode(message)
+        const address = did.replace('did:algo:', '')
+        return algosdk.verifyBytes(encodedMessage, bufferFromSignatureString, address)
     }
-
 }
