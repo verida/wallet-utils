@@ -6,8 +6,7 @@
       "outDir": "./dist",
       "strict": true,
       "lib": [
-        "es5",
-        "dom"
+        "es5"
       ]
     },
     "include": ["src"],

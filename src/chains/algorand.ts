@@ -44,6 +44,7 @@ export default class utils {
     }
 
     static async signMessage(privateKey: string, message: string): Promise<string> {
+        // @ts-ignore
         const encodedMessage = new TextEncoder().encode(message)
         const sk = algosdk.secretKeyToMnemonic(stringToArray(privateKey))
         const wallet = algosdk.mnemonicToSecretKey(sk)
@@ -58,6 +59,7 @@ export default class utils {
 
     static async verifySignature(message: string, signature: string, did: string): Promise<boolean> {
         const bufferFromSignatureString =  Buffer.from(signature.substring(2,signature.length), 'hex')
+        // @ts-ignore
         const encodedMessage = new TextEncoder().encode(message)
         const address = did.replace('did:algo:', '')
         return algosdk.verifyBytes(encodedMessage, bufferFromSignatureString, address)
