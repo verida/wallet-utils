@@ -7,6 +7,7 @@ const ethers = require("ethers");
 // paths based on BIP 44 standard
 const ETH_PATH = "m/44'/60'/0'/0/0";
 const ALGO_PATH = "m/44'/283'/0'/0/0";
+const NEAR_PATH = "m/44'/397'/0'/0/0";
 
 export default class MultiChainWallets {
   static generateMnemonic(): string {
@@ -20,6 +21,7 @@ export default class MultiChainWallets {
     const node = ethers.utils.HDNode.fromMnemonic(mnemonic);
     const ethNode = node.derivePath(ETH_PATH);
     const algoNode = node.derivePath(ALGO_PATH);
+    const nearNode = node.derivePath(NEAR_PATH);
 
     // create algo wallet
     const algoMnemonic = algosdk.mnemonicFromSeed(
@@ -27,7 +29,8 @@ export default class MultiChainWallets {
     );
     const algoWallet = utils.getWallet("algo", algoMnemonic);
     const ethrWallet = utils.getWallet("ethr", ethNode.mnemonic.phrase);
+    const nearWallet = utils.getWallet("near", nearNode.mnemonic.phrase);
 
-    return { algo: algoWallet, ethr: ethrWallet };
+    return { algo: algoWallet, ethr: ethrWallet, near: nearWallet };
   }
 }
