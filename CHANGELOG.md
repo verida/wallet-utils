@@ -1,3 +1,7 @@
+## 2022-06-09 v1.7.0
+
+- Update dependency issue
+
 ## 2022-04-13 v1.6.0
 
 - Add support for NEAR to HD wallets
