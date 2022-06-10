@@ -1,5 +1,9 @@
 ## 2022-06-09 v1.6.2
 
+- Migrate to yarn
+
+## 2022-06-09 v1.6.2
+
 - Lock dependencies
 
 ## 2022-06-09 v1.6.1
