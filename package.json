@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha -mocha --require ts-node/register --require @babel/polyfill --require @babel/register './test/**/*.js'",
     "build": "tsc",
-    "preinstall": "npm install --ignore-scripts",
-    "prepublish": "npm run build"
+    "preinstall": "yarn install",
+    "prepublish": "yarn build"
   },
   "repository": {
     "type": "git",
