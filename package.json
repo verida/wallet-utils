@@ -1,6 +1,6 @@
 {
   "name": "@verida/wallet-utils",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Wallet utilities for managing accounts, keys and signatures across multiple blockchains",
   "main": "dist/index.js",
   "scripts": {
@@ -25,8 +25,8 @@
     "ethers": "^5.0.5",
     "hdkey": "^2.0.1",
     "lodash": "^4.17.21",
-    "near-api-js": "^0.38.0",
-    "near-seed-phrase": "^0.1.1",
+    "near-api-js": "0.38.0",
+    "near-seed-phrase": "0.1.1",
     "thor-devkit": "^1.2.5",
     "tweetnacl": "^1.0.3"
   },

@@ -1,4 +1,8 @@
-## 2022-06-09 v1.7.0
+## 2022-06-09 v1.6.2
+
+- Lock dependencies
+
+## 2022-06-09 v1.6.1
 
 - Update dependency issue
 
