@@ -1,3 +1,7 @@
+## 2022-06-09 v1.7.0
+
+- Add polygon support to multi chain wallet util
+
 ## 2022-06-09 v1.6.2
 
 - Lock dependencies
