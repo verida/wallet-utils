@@ -7,6 +7,7 @@ type Dictionary = { [index: string]: any };
 
 const chains: Dictionary = {
   ethr: ethereumUtils,
+  poly: ethereumUtils,
   vechain: vechainUtils,
   near: nearUtils,
   algo: algorandUtils,
