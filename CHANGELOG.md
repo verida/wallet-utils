@@ -1,3 +1,7 @@
+## 2022-06-09 v1.7.2
+
+- Update near dependencies
+
 ## 2022-06-09 v1.7.1
 
 - Change how NEAR addresses are generated
