@@ -6,7 +6,7 @@ const nacl = require('tweetnacl');
 const crypto = require('crypto');
 
 function implicitAccountId(publicKey: string) {
-    return nearAPI.utils.PublicKey.fromString(publicKey).data.hexSlice();
+    return bs58.decode(publicKey.replace("ed25519:", "")).toString("hex")
 }
 
 export default class utils {
