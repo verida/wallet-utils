@@ -1,3 +1,7 @@
+## 2022-08-06 v1.7.3
+
+- Undo NEAR address change in 1.7.1
+
 ## 2022-06-09 v1.7.2
 
 - Update near dependencies
