@@ -25,6 +25,17 @@ export default class utils {
         }
     }
 
+    static getWalletByPrivateKey(privateKey: string): object {
+        const wallet = new ethers.Wallet(privateKey)
+
+        return {
+            mnemonic: null,
+            privateKey: wallet.privateKey,
+            publicKey: wallet.publicKey,
+            address: ethers.utils.computeAddress(wallet.privateKey)
+        }
+    }
+
     static getPublicKey(privateKey: string): string {
         const wallet = new ethers.Wallet(privateKey)
         return wallet.publicKey
