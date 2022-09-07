@@ -31,6 +31,10 @@ export default class utils {
         }
     }
 
+    static getWalletByPrivateKey(): object {
+        throw new Error("Not implemented");
+    }
+
     static createPrivateKey(): string {
         const keyBytes = cry.secp256k1.generatePrivateKey()
         return '0x' + Buffer.from(keyBytes).toString('hex')
