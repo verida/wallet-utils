@@ -65,5 +65,23 @@ describe("Ethereum", function () {
       );
       assert.ok(account.address == accountRetreived.address, "Address matches");
     });
+
+    it("Can retreive from privateKey", function () {
+      const accountRetreived = utils.getWalletByPrivateKey("ethr", account.privateKey);
+
+      assert.ok(
+        accountRetreived.mnemonic === null,
+        "Mnemonic is null"
+      );
+      assert.ok(
+        account.privateKey == accountRetreived.privateKey,
+        "Private key matches"
+      );
+      assert.ok(
+        account.publicKey == accountRetreived.publicKey,
+        "Public key matches"
+      );
+      assert.ok(account.address == accountRetreived.address, "Address matches");
+    });
   });
 });

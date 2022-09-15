@@ -35,6 +35,10 @@ export default class utils {
         }
     }
 
+    static getWalletByPrivateKey(): object {
+        throw new Error("Not implemented");
+    }
+
     static createPrivateKey(): string {
         throw new Error('Not implemented');
     }

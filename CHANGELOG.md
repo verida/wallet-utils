@@ -1,3 +1,7 @@
+## 2022-08-06 v1.7.4
+
+- Add support for `getWalletByPrivateKey()` for ethereum. Unsupported for other chains at this stage.
+
 ## 2022-08-06 v1.7.3
 
 - Undo NEAR address change in 1.7.1

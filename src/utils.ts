@@ -46,6 +46,20 @@ export class utils {
     };
   }
 
+  static getWalletByPrivateKey(chain: string, privateKey: string): object {
+    const wallet = chains[chain].getWalletByPrivateKey(privateKey);
+    const did = "did:" + chain + ":" + wallet["address"];
+
+    return {
+      chain: chain,
+      mnemonic: wallet["mnemonic"],
+      privateKey: wallet["privateKey"],
+      publicKey: wallet["publicKey"],
+      did: did,
+      address: wallet["address"],
+    };
+  }
+
   static getPublicKey(chain: string, privateKey: string): string {
     return chains[chain].getPublicKey(privateKey);
   }

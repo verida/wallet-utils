@@ -31,6 +31,10 @@ export default class utils {
         }
     }
 
+    static getWalletByPrivateKey(): object {
+        throw new Error("Not implemented");
+    }
+
     static getPublicKey(privateKey: string): string {
         const sk = algosdk.secretKeyToMnemonic(stringToArray(privateKey))
         const wallet = algosdk.mnemonicToSecretKey(sk)
